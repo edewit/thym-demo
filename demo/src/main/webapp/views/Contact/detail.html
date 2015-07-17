@@ -1,0 +1,34 @@
+<header ng-switch on="$location.path().indexOf('/Contacts/new') > -1">
+    <h3 ng-switch-when="true">Create a new Contact</h3>
+    <h3 ng-switch-when="false">View or edit Contact</h3>
+</header>
+<form id="ContactForm" name="ContactForm" class="form-horizontal" role="form">
+    <div ng-show="displayError" class="alert alert-danger">
+        <strong>Error!</strong> Something broke. Retry, or cancel and start afresh.
+    </div>
+    
+
+    <div class="form-group" ng-class="{'has-error': ContactForm.name.$invalid}">
+        <label for="name" class="col-sm-2 control-label">Name</label>
+        <div id="nameControls" class="col-sm-10">
+            <input id="name" name="name" type="text"class="form-control" ng-model="contact.name" placeholder="Enter the Contact Name"></input>
+        </div>
+    </div>
+
+    <div class="form-group" ng-class="{'has-error': ContactForm.age.$invalid}">
+        <label for="age" class="col-sm-2 control-label">Age</label>
+        <div id="ageControls" class="col-sm-10">
+            <input id="age" name="age" type="number"class="form-control" ng-model="contact.age" placeholder="Enter the Contact Age"></input>
+            <span class="help-block error" ng-show="ContactForm.age.$error.number">not a number</span>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button id="saveContact" name="saveContact" class="btn btn-primary" ng-disabled="isClean() || ContactForm.$invalid" ng-click="save()"><span class="glyphicon glyphicon-ok-sign"></span> Save</button>
+            <button id="cancel" name="cancel" class="btn btn-default" ng-click="cancel()"><span class="glyphicon glyphicon-remove-sign"></span> Cancel</button>
+            <button id="deleteContact" name="deleteContact" class="btn btn-danger" ng-show="contact.id" ng-click="remove()"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+        </div>
+    </div>
+</form>
